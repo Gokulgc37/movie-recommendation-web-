@@ -17,8 +17,8 @@ This project is a web-based movie recommendation system that provides content-ba
    `cd movie-recommendation-system`
    
 - Create the necessary directories and files:  
-   mkdir templates static data
-   touch templates/home.html templates/result.html static/style.css data/movies.csv main.py requirements.txt README.md
+   mkdir templates static data  
+   touch templates/home.html templates/result.html static/style.css data/movies.csv main.py requirements.txt README.md  
    Add your HTML content to home.html, result.html, and your CSS styles to style.css. Populate movies.csv with your movie data.
 
 - Open requirements.txt and add the following dependencies:  
