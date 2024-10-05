@@ -12,7 +12,7 @@ This project is a web-based movie recommendation system that provides content-ba
 
 ## Installation
 
-1. Create a project directory:
+Create a project directory:
    mkdir movie-recommendation-system
    cd movie-recommendation-system
    
