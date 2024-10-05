@@ -52,6 +52,7 @@ Select t2.micro for the instance type.
 Create a new key pair or use an existing one.
 Configure security group to allow SSH, HTTP, and HTTPS traffic.
 
+navigate to security group and click the instance you created, edit the inbound rules and click add rule choose a type as custom TCP , type a port range as 8080 and select the source as Anywhere IPv4
 Transfer your local files to the EC2 instance using SCP:
 scp -i my-key.pem -r movie-recommendation-system ubuntu@your-public-ip:/home/ubuntu
 
