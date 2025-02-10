@@ -1,0 +1,50 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.12.3
+
+      - name: Install dependencies
+        run: |
+          python -m venv env
+          source env/bin/activate
+          pip install -r requirements.txt
+
+      - name: Run Tests (if applicable)
+        run: |
+          source env/bin/activate
+          # Add your test commands here
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to AWS EC2
+        run: |
+          echo "${{ secrets.EC2_SSH_KEY }}" > ec2-key.pem
+          chmod 600 ec2-key.pem
+          
+          mkdir -p ~/.ssh
+          ssh-keyscan -H 54.241.239.222 >> ~/.ssh/known_hosts
+          
+          ssh -i "ec2-key.pem" ubuntu@54.241.239.222 "cd /home/ubuntu/movie-recommendation-web- && git pull origin main &&
+            if [ ! -d 'env' ]; then python3 -m venv env; fi && source env/bin/activate && pip install -r requirements.txt &&
+            nohup uvicorn main:app --host 0.0.0.0 --port 8080 & exit 0"
